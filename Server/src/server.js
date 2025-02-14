@@ -7,6 +7,8 @@ import { connectDB } from "./database/config.js";
 
 const app = express();
 
+app.use(express.json());
+
 const PORT = process.env.PORT;
 
 connectDB();
@@ -14,16 +16,6 @@ connectDB();
 app.get("/", getHome);
 
 app.use("/api", blogRouter, usersRouter);
-
-/*
-app.get("/blogs", getBlogs);
-
-app.post("/blogs", );
-
-app.put("/blogs", editBlogs);
-
-app.delete("/blogs", deleteBlogs);
-*/
 
 app.listen(PORT, () => {
   console.log(`server listening on ${PORT}`);

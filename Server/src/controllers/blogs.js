@@ -1,25 +1,79 @@
+import { Blog } from "../database/models/blog.js";
 
+//GET
+export const getBlogs = async (req, res) => {
+  try {
+    const blogs = await Blog.find();
 
-export const getBlogs = (req, res) => {
-  res.json({
-    message: "This is getting blogs",
-  });
+    res.status(200).json({
+      success: true,
+      data: blogs,
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({
+      success: false,
+      message: "Failed",
+    });
+  }
 };
 
-export const addBlogs = (req, res) => {
-  res.json({
-    message: "This is posting blogs",
-  });
+//POST
+export const addBlogs = async (req, res) => {
+  try {
+    const newBlog = await Blog.create(req.body);
+
+    res.status(200).json({
+      success: true,
+      message: newBlog,
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({
+      success: false,
+      message: "Failed",
+    });
+  }
 };
 
-export const editBlogs = (req, res) => {
-  res.json({
-    message: "This is editing blogs",
-  });
+//PUT
+export const editBlogs = async (req, res) => {
+  try {
+    const blogId = req.query.id;
+
+    const article = await Blog.findOneAndUpdate({_id: blogId}, req.body, {
+      new: true, //esnure the updated document is returned
+    });
+
+    res.status(200).json({
+      success: true,
+      data: article,
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({
+      success: false,
+      message: "Failed to get articles",
+    });
+  }
 };
 
-export const deleteBlogs = (req, res) => {
-  res.json({
-    message: "This is deleting blogs",
-  });
+//DELETE
+export const deleteBlogs = async (req, res) => {
+  try {
+    const blogId = req.query.id;
+
+    const removedBlog = await Blog.deleteOne({ _id: blogId });
+
+    res.status(200).json({
+      success: true,
+      deletedCount: removedBlog.deletedCount,
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({
+      success: false,
+      message: "Error!",
+    });
+  }
 };
