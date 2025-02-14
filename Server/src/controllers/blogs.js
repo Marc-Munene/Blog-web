@@ -1,6 +1,6 @@
 import { Blog } from "../database/models/blog.js";
 
-//GET
+//GET all blogs
 export const getBlogs = async (req, res) => {
   try {
     const blogs = await Blog.find();
