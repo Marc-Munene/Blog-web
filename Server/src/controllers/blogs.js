@@ -53,7 +53,7 @@ export const editBlogs = async (req, res) => {
     console.log(error);
     res.status(500).json({
       success: false,
-      message: "Failed to get articles",
+      message: "Failed to edit articles",
     });
   }
 };
