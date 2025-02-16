@@ -1,10 +1,17 @@
 import React from "react";
+import { Header } from "./Components/Header";
+import TopBar from "./Components/TopBar";
+
+
 
 const App = () => {
   return (
-    <div>
-      <h1 className="text-9xl text-black">My name is munene</h1>
-    </div>
+    <>
+      <Header />
+      <TopBar />
+      
+      
+    </>
   );
 };
 
